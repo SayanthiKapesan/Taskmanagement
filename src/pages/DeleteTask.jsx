@@ -5,71 +5,6 @@ const DeleteTask = ({ tasks, setTasks }) => {
   const { id } = useParams();
   const task = tasks.find(task => task.id === Number(id));
 
-  // Styles object
-  const styles = {
-    container: {
-      maxWidth: '600px',
-      margin: '2rem auto',
-      padding: '2rem',
-      borderRadius: '8px',
-      boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-      backgroundColor: '#fff'
-    },
-    heading: {
-      color: '#d32f2f',
-      marginBottom: '1.5rem',
-      textAlign: 'center'
-    },
-    taskDetails: {
-      margin: '1.5rem 0',
-      padding: '1rem',
-      backgroundColor: '#f9f9f9',
-      borderRadius: '6px'
-    },
-    detailText: {
-      margin: '0.5rem 0',
-      lineHeight: '1.6'
-    },
-    actions: {
-      display: 'flex',
-      justifyContent: 'center',
-      gap: '1rem',
-      marginTop: '2rem'
-    },
-    deleteButton: {
-      padding: '0.5rem 1.5rem',
-      backgroundColor: '#d32f2f',
-      color: 'white',
-      border: 'none',
-      borderRadius: '4px',
-      cursor: 'pointer',
-      fontSize: '1rem',
-      fontWeight: '500',
-      transition: 'background-color 0.2s',
-      '&:hover': {
-        backgroundColor: '#b71c1c'
-      }
-    },
-    cancelButton: {
-      padding: '0.5rem 1.5rem',
-      backgroundColor: '#f5f5f5',
-      color: '#333',
-      border: '1px solid #ddd',
-      borderRadius: '4px',
-      cursor: 'pointer',
-      fontSize: '1rem',
-      fontWeight: '500',
-      transition: 'background-color 0.2s',
-      '&:hover': {
-        backgroundColor: '#e0e0e0'
-      }
-    },
-    notFound: {
-      textAlign: 'center',
-      color: '#666'
-    }
-  };
-
   const handleDelete = () => {
     setTasks(tasks.filter(task => task.id !== Number(id)));
     navigate('/');
@@ -80,27 +15,150 @@ const DeleteTask = ({ tasks, setTasks }) => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.heading}>Confirm Deletion</h2>
+    <div className="delete-container">
+      <h2 className="delete-heading">Confirm Deletion</h2>
       {task ? (
         <>
-          <p style={{ textAlign: 'center' }}>Are you sure you want to delete "{task.title}"?</p>
-          <div style={styles.taskDetails}>
-            <p style={styles.detailText}><strong>Description:</strong> {task.description}</p>
-            <p style={styles.detailText}><strong>Status:</strong> {task.status}</p>
+          <p className="confirmation-text">Are you sure you want to delete "{task.title}"?</p>
+          <div className="task-details">
+            <p className="detail"><strong>Description:</strong> {task.description}</p>
+            <p className="detail"><strong>Status:</strong> {task.status}</p>
           </div>
-          <div style={styles.actions}>
-            <button onClick={handleDelete} style={styles.deleteButton}>
+          <div className="action-buttons">
+            <button onClick={handleDelete} className="delete-btn">
               Delete
             </button>
-            <button onClick={handleCancel} style={styles.cancelButton}>
+            <button onClick={handleCancel} className="cancel-btn">
               Cancel
             </button>
           </div>
         </>
       ) : (
-        <p style={styles.notFound}>Task not found.</p>
+        <p className="not-found">Task not found.</p>
       )}
+
+      <style jsx="true">{`
+        .delete-container {
+          padding: 1.5rem;
+          margin: 1rem;
+          border-radius: 12px;
+          background: #fff;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          max-width: 100%;
+          box-sizing: border-box;
+        }
+
+        .delete-heading {
+          color: #dc3545;
+          font-size: 1.5rem;
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+
+        .confirmation-text {
+          text-align: center;
+          font-size: 1.1rem;
+          color: #444;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+
+        .task-details {
+          padding: 1.2rem;
+          background: #f8f9fa;
+          border-radius: 8px;
+          margin-bottom: 2rem;
+        }
+
+        .detail {
+          margin: 0.8rem 0;
+          font-size: 1rem;
+          color: #495057;
+          line-height: 1.6;
+        }
+
+        .action-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .delete-btn,
+        .cancel-btn {
+          padding: 1rem;
+          border: none;
+          border-radius: 8px;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          width: 100%;
+        }
+
+        .delete-btn {
+          background: #dc3545;
+          color: white;
+        }
+
+        .delete-btn:active {
+          background: #bb2d3b;
+        }
+
+        .cancel-btn {
+          background: #6c757d;
+          color: white;
+          border: none;
+        }
+
+        .cancel-btn:active {
+          background: #5a6268;
+        }
+
+        .not-found {
+          text-align: center;
+          color: #6c757d;
+          font-size: 1.1rem;
+          padding: 2rem 0;
+        }
+
+        @media (min-width: 768px) {
+          .delete-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+          }
+
+          .action-buttons {
+            flex-direction: row;
+            justify-content: center;
+          }
+
+          .delete-btn,
+          .cancel-btn {
+            width: auto;
+            padding: 0.8rem 2rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .delete-container {
+            margin: 0.5rem;
+            padding: 1.2rem;
+          }
+
+          .delete-heading {
+            font-size: 1.3rem;
+          }
+
+          .confirmation-text {
+            font-size: 1rem;
+          }
+
+          .detail {
+            font-size: 0.95rem;
+          }
+        }
+      `}</style>
     </div>
   );
 };
