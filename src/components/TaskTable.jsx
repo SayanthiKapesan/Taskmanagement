@@ -43,7 +43,7 @@ const TaskTable = ({ tasks, setTasks, statusFilter, searchTerm }) => {
   return (
     <div className="task-table-container">
       {filteredTasks.length === 0 ? (
-        <p>No tasks found.</p>
+        <p className='notask'>No tasks found.......!</p>
       ) : (
         <>
           <div className="table-responsive">

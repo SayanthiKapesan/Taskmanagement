@@ -247,6 +247,8 @@ button[type="submit"] {
   gap: 1rem;
 }
 
+
+
 /* Table styling */
 .task-table tr {
   cursor: pointer;
@@ -348,4 +350,10 @@ textarea {
     max-width: 500px;
     margin: 0 auto;
   }
+}
+
+
+.notask{
+  font-size: larger;
+  color: red;
 }
